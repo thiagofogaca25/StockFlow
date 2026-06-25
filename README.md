@@ -114,7 +114,7 @@ Este projeto foi desenvolvido para consolidar conhecimentos em Java e servir com
 **Thiago Fogaça**
 
 - GitHub: https://github.com/thiagofogaca25
-- LinkedIn: https://www.linkedin.com/in/SEU-LINKEDIN
+- LinkedIn: https://www.linkedin.com/in/thiago-fogaca
 
 ---
 
