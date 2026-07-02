@@ -1,51 +1,45 @@
 # 📦 StockFlow
+![Java](https://img.shields.io/badge/Java-21-orange)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-blue)
+![Maven](https://img.shields.io/badge/Maven-Build-red)
+![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-success)
+Sistema de gerenciamento de estoque desenvolvido em **Java**, aplicando conceitos de **Programação Orientada a Objetos**, **JDBC** e **PostgreSQL**.
 
-Um sistema de gerenciamento de estoque desenvolvido em **Java** com o objetivo de praticar conceitos de **Programação Orientada a Objetos (POO)** e desenvolvimento Back-End.
-
-Este projeto faz parte da minha jornada de aprendizado para me tornar um Desenvolvedor Back-End Java.
+O projeto faz parte da minha jornada de aprendizado para me tornar um Desenvolvedor Back-End Java e evolui continuamente conforme avanço no roadmap de estudos.
 
 ---
 
-## 🚀 Funcionalidades
+# 🚀 Funcionalidades
 
 - ✅ Cadastro de produtos
+- ✅ Listagem de produtos
+- ✅ Busca por ID
 - ✅ Atualização de produtos
 - ✅ Remoção de produtos
-- ✅ Consulta de produtos
 - ✅ Controle de estoque
 - ✅ Produtos físicos
 - ✅ Produtos digitais
-- ✅ Interface baseada em menu no terminal
+- ✅ Persistência de dados em PostgreSQL
+- ✅ Geração automática de IDs pelo banco
+- ✅ Arquitetura em camadas (Model • DAO • Service)
+- ✅ Interface via terminal
 
 ---
 
-## 🛠️ Tecnologias Utilizadas
+# 🛠️ Tecnologias
 
-- Java
+- Java 21
+- PostgreSQL
+- JDBC
 - Maven
 - Git
-- Programação Orientada a Objetos (POO)
+- GitHub
 
 ---
 
-## 📂 Estrutura do Projeto
+# 📚 Conceitos Aplicados
 
-```
-src
-└── main
-    └── java
-        └── estoque
-            ├── Main.java
-            ├── EstoqueService.java
-            ├── Produto.java
-            ├── ProdutoFisico.java
-            ├── ProdutoDigital.java
-            └── Vendavel.java
-```
-
----
-
-## 📖 Conceitos Aplicados
+### Programação Orientada a Objetos
 
 - Classes e Objetos
 - Encapsulamento
@@ -53,35 +47,145 @@ src
 - Polimorfismo
 - Classes Abstratas
 - Interfaces
-- Collections
-- Organização em camadas
-- Boas práticas de código
+
+### Collections Framework
+
+- ArrayList
+- List
+- Iterator
+
+### Tratamento de Exceções
+
+- try/catch
+- finally
+- throw
+- throws
+- Exceções customizadas
+
+### Banco de Dados
+
+- PostgreSQL
+- JDBC
+- Connection
+- PreparedStatement
+- ResultSet
+- Generated Keys
+- CRUD completo
+
+### Boas práticas
+
+- Separação de responsabilidades
+- Arquitetura em camadas
+- Reutilização de código
+- Organização de pacotes
 
 ---
 
-## ⚙️ Como executar
+# 📂 Estrutura do Projeto
 
-### Clone o repositório
+```
+src
+└── main
+    └── java
+        └── estoque
+            ├── model
+            │   ├── Produto.java
+            │   ├── ProdutoFisico.java
+            │   └── ProdutoDigital.java
+            │
+            ├── dao
+            │   └── ProdutoDAO.java
+            │
+            ├── service
+            │   └── EstoqueService.java
+            │
+            ├── database
+            │   └── ConnectionFactory.java
+            │
+            └── Main.java
+```
+
+---
+
+# 💾 Banco de Dados
+
+O projeto utiliza **PostgreSQL** para persistência dos dados.
+
+Tabela principal:
+
+| Campo | Tipo |
+|-------|------|
+| id | SERIAL |
+| nome | VARCHAR |
+| preco | DECIMAL |
+| quantidade | INTEGER |
+| categoria | VARCHAR |
+| tipo | VARCHAR |
+
+---
+
+# ⚙️ Como executar
+
+## 1. Clone o repositório
 
 ```bash
 git clone https://github.com/thiagofogaca25/StockFlow.git
 ```
 
-### Entre na pasta
+---
+
+## 2. Entre na pasta
 
 ```bash
 cd StockFlow
 ```
 
-### Execute o projeto
+---
 
-Pela IDE (IntelliJ IDEA ou VS Code) execute a classe:
+## 3. Configure o PostgreSQL
+
+Crie um banco de dados:
+
+```sql
+CREATE DATABASE stockflow;
+```
+
+Depois crie a tabela:
+
+```sql
+CREATE TABLE produtos (
+    id SERIAL PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL,
+    preco DECIMAL(10,2) NOT NULL,
+    quantidade INT NOT NULL,
+    categoria VARCHAR(50),
+    tipo VARCHAR(20)
+);
+```
+
+---
+
+## 4. Configure a conexão
+
+Edite a classe `ConnectionFactory.java` informando:
+
+```java
+url
+usuario
+senha
+```
+
+---
+
+## 5. Execute
+
+Pela IDE:
 
 ```
 Main.java
 ```
 
-Ou pelo Maven:
+Ou utilizando Maven:
 
 ```bash
 mvn compile
@@ -90,32 +194,54 @@ mvn exec:java
 
 ---
 
-## 📈 Próximas Implementações
+# 📈 Roadmap do Projeto
 
-- [ ] Persistência com PostgreSQL
+## ✅ Concluído
+
+- Programação Orientada a Objetos
+- Collections Framework
+- Tratamento de Exceções
+- JDBC
+- PostgreSQL
+- CRUD completo
+- 
+## Imagens
+[codigos 1](https://github.com/thiagofogaca25/StockFlow/blob/main/codigos1.png)
+[codigos 2](https://github.com/thiagofogaca25/StockFlow/blob/main/codigos2.png)
+[terminal](https://github.com/thiagofogaca25/StockFlow/blob/main/terminal1.png)
+
+## 🚧 Próximas implementações
+
 - [ ] Spring Boot
 - [ ] API REST
 - [ ] Spring Data JPA
-- [ ] Autenticação com JWT
+- [ ] Hibernate
+- [ ] Validação com Bean Validation
+- [ ] JWT
 - [ ] Docker
 - [ ] Testes Unitários (JUnit)
-- [ ] Documentação com Swagger
+- [ ] Swagger / OpenAPI
 
 ---
 
-## 🎯 Objetivo
+# 🎯 Objetivo
 
-Este projeto foi desenvolvido para consolidar conhecimentos em Java e servir como base para futuras implementações utilizando o ecossistema Spring.
+Mais do que um sistema de estoque, este projeto representa minha evolução prática em Java.
+
+A cada nova etapa do roadmap, novas tecnologias e boas práticas são incorporadas, transformando o StockFlow em uma aplicação cada vez mais próxima de um sistema utilizado no mercado.
 
 ---
 
-## 👨‍💻 Autor
+# 👨‍💻 Autor
 
 **Thiago Fogaça**
 
-- GitHub: https://github.com/thiagofogaca25
-- LinkedIn: https://www.linkedin.com/in/thiago-fogaca
+GitHub:
+> https://github.com/thiagofogaca25
+
+LinkedIn:
+> https://www.linkedin.com/in/thiago-fogaca
 
 ---
 
-## ⭐ Se este projeto foi útil, deixe uma estrela no repositório!
+⭐ Se este projeto foi interessante para você, deixe uma estrela no repositório!
