@@ -3,6 +3,7 @@
 ![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-blue)
 ![Maven](https://img.shields.io/badge/Maven-Build-red)
 ![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-success)
+
 Sistema de gerenciamento de estoque desenvolvido em **Java**, aplicando conceitos de **Programação Orientada a Objetos**, **JDBC** e **PostgreSQL**.
 
 O projeto faz parte da minha jornada de aprendizado para me tornar um Desenvolvedor Back-End Java e evolui continuamente conforme avanço no roadmap de estudos.
