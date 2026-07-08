@@ -3,7 +3,7 @@ package estoque.model;
 import estoque.Vendavel;
 
 public class ProdutoDigital extends Produto implements Vendavel {
-    public ProdutoDigital(int id,String nome, double preco, int quantidade, String categoria) {
+    public ProdutoDigital(int id,String nome, double preco, String categoria, int quantidade) {
         super(id, nome, preco, categoria, quantidade);
     }
 

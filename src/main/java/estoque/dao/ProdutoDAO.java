@@ -11,14 +11,13 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.sql.Statement;
 
 public class ProdutoDAO {
     public void save(Produto produto){
         String sql = "INSERT INTO produtos (nome, preco, quantidade, categoria, tipo) VALUES (?, ?, ?, ?, ?)";
         try (
                 Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)
             ) {
             preparedStatement.setString(1, produto.getNome());
             preparedStatement.setDouble(2, produto.getPreco());
@@ -42,7 +41,7 @@ public class ProdutoDAO {
 
         try (
                 Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)
                 ){
                 ResultSet resultSet = preparedStatement.executeQuery();
 
@@ -64,10 +63,10 @@ public class ProdutoDAO {
         String tipo = resultSet.getString("tipo");
 
         if (tipo.equalsIgnoreCase("Fisico")) {
-            return new ProdutoFisico(id, nome, preco, quantidade, categoria);
+            return new ProdutoFisico(id, nome, preco, categoria, quantidade);
         }
 
-        return new ProdutoDigital(id, nome, preco, quantidade, categoria);
+        return new ProdutoDigital(id, nome, preco, categoria, quantidade);
     }
 
     public void updateQuantidade(int id, int quantidade){
@@ -75,7 +74,7 @@ public class ProdutoDAO {
 
         try(
                 Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)
                 ){
             preparedStatement.setInt(1, quantidade);
             preparedStatement.setInt(2, id);
@@ -89,7 +88,7 @@ public class ProdutoDAO {
         String sql = "DELETE FROM produtos WHERE id=?";
         try (
                 Connection connection = ConnectionFactory.getConnection();
-                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                PreparedStatement preparedStatement = connection.prepareStatement(sql)
         ) {
             preparedStatement.setInt(1, id);
             preparedStatement.executeUpdate();

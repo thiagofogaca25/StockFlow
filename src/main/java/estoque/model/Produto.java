@@ -1,11 +1,12 @@
 package estoque.model;
+import java.io.Serializable;
 
-public abstract class Produto{
+public abstract class Produto implements Serializable{
     private int id;
     private final String nome;
     private final double preco;
     private final String categoria;
-    private final int quantidade;
+    private int quantidade;
 
     public Produto(String nome, double preco, String categoria, int quantidade) {
         this.nome = nome;
@@ -37,6 +38,10 @@ public abstract class Produto{
     public String getCategoria(){return categoria;}
 
     public int getQuantidade(){return quantidade;}
+
+    public void setQuantidade(int quantidade){
+        this.quantidade = quantidade;
+    }
 
     public abstract void exibirInformacao();
 
