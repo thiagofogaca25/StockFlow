@@ -1,6 +1,6 @@
 # 📦 StockFlow
 
-alternativo](https://github.com/thiagofogaca25/StockFlow/blob/main/Gemini_Generated_Image_9qtmub9qtmub9qtm.png)
+![imagem](https://github.com/thiagofogaca25/StockFlow/blob/main/Gemini_Generated_Image_9qtmub9qtmub9qtm.png)
 
 Sistema de gerenciamento de estoque desenvolvido em **Java**, atualmente utilizando **Spring Boot**, **Spring Data JPA**, **Hibernate** e **PostgreSQL**.
 
