@@ -25,7 +25,7 @@ public class ProdutoCsvImporter {
                 String[] colunas = linha.split(",");
 
                 if(colunas.length < 6){
-                    IO.println("Linha invalida ignorada: " + linha);
+                    System.out.println("Linha invalida ignorada: " + linha);
                     continue;
                 }
                 String nome = colunas[1];
@@ -35,10 +35,10 @@ public class ProdutoCsvImporter {
                 String tipo = colunas[5];
 
                 if(tipo.equalsIgnoreCase("fisico")){
-                    Produto produtoFisico = new ProdutoFisico(nome,preco,categoria,quantidade);
+                    Produto produtoFisico = new ProdutoFisico(nome,preco,categoria,quantidade,tipo);
                     produto.add(produtoFisico);
                 }else{
-                    Produto produtoDigital = new ProdutoDigital(nome,preco,quantidade,categoria);
+                    Produto produtoDigital = new ProdutoDigital(nome,preco,quantidade,categoria,tipo);
                     produto.add(produtoDigital);
                 }
             }
