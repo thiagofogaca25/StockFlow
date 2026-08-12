@@ -1,13 +1,8 @@
 # 📦 StockFlow
 
-![Java](https://img.shields.io/badge/Java-21-orange)
-![PostgreSQL](https://img.shields.io/badge/PostgreSQL-17-blue)
-![Maven](https://img.shields.io/badge/Maven-Build-red)
-![Status](https://img.shields.io/badge/Status-Em%20Desenvolvimento-success)
+Sistema de gerenciamento de estoque desenvolvido em **Java**, atualmente utilizando **Spring Boot**, **Spring Data JPA**, **Hibernate** e **PostgreSQL**.
 
-Sistema de gerenciamento de estoque desenvolvido em **Java**, aplicando conceitos de **Programação Orientada a Objetos**, **JDBC**, **PostgreSQL** e **Java I/O**.
-
-Este projeto faz parte da minha jornada de aprendizado para me tornar um **Desenvolvedor Back-End Java** e evolui continuamente conforme avanço no meu roadmap de estudos.
+O projeto começou como uma aplicação Java utilizando **JDBC** e evoluiu para uma **API REST**, acompanhando minha jornada de aprendizado para me tornar um **Desenvolvedor Back-End Java**.
 
 ---
 
@@ -15,7 +10,7 @@ Este projeto faz parte da minha jornada de aprendizado para me tornar um **Desen
 
 * ✅ Cadastro de produtos
 * ✅ Listagem de produtos
-* ✅ Busca por ID
+* ✅ Busca de produto por ID
 * ✅ Atualização de produtos
 * ✅ Remoção de produtos
 * ✅ Controle de estoque
@@ -23,17 +18,31 @@ Este projeto faz parte da minha jornada de aprendizado para me tornar um **Desen
 * ✅ Produtos digitais
 * ✅ Persistência em PostgreSQL
 * ✅ Geração automática de IDs pelo banco
+* ✅ API REST
+* ✅ Respostas HTTP apropriadas
+* ✅ `201 Created` para criação de recursos
+* ✅ `404 Not Found` para recursos inexistentes
+* ✅ `204 No Content` para remoção
+* ✅ Arquitetura em camadas
+* ✅ Spring Data JPA
+* ✅ Hibernate
+
+### Funcionalidades implementadas anteriormente
+
 * ✅ Exportação de produtos para CSV
 * ✅ Backup de dados utilizando serialização (`.dat`)
 * ✅ Restauração de backups
-* ✅ Arquitetura em camadas (Model • DAO • Service)
-* ✅ Interface via terminal
+* ✅ Persistência utilizando JDBC
 
 ---
 
 # 🛠️ Tecnologias
 
-* Java 21
+* Java
+* Spring Boot
+* Spring Web
+* Spring Data JPA
+* Hibernate
 * PostgreSQL
 * JDBC
 * Java I/O (NIO)
@@ -62,21 +71,22 @@ Este projeto faz parte da minha jornada de aprendizado para me tornar um **Desen
 
 ## Tratamento de Exceções
 
-* try/catch
-* finally
-* throw
-* throws
+* `try/catch`
+* `finally`
+* `throw`
+* `throws`
 * Exceções customizadas
 
 ## Banco de Dados
 
 * PostgreSQL
+* SQL
 * JDBC
-* Connection
 * PreparedStatement
 * ResultSet
 * Generated Keys
 * CRUD completo
+* Persistência de entidades
 
 ## Java I/O
 
@@ -92,13 +102,49 @@ Este projeto faz parte da minha jornada de aprendizado para me tornar um **Desen
 * Exportação CSV
 * Backup e restauração de objetos
 
+## Spring Boot
+
+* Spring Boot
+* Inversão de Controle (IoC)
+* Injeção de Dependência (DI)
+* Spring Web
+* REST API
+* `@RestController`
+* `@GetMapping`
+* `@PostMapping`
+* `@PutMapping`
+* `@DeleteMapping`
+* `ResponseEntity`
+* Status HTTP
+
+## Spring Data JPA
+
+* `@Entity`
+* `@Id`
+* `@GeneratedValue`
+* `JpaRepository`
+* `findAll()`
+* `findById()`
+* `save()`
+* `existsById()`
+* `deleteById()`
+
+## Hibernate
+
+* ORM
+* Mapeamento objeto-relacional
+* Persistência de entidades
+* Geração de SQL
+
 ## Boas Práticas
 
 * Separação de responsabilidades
 * Arquitetura em camadas
+* Injeção de dependências
 * Reutilização de código
 * Organização de pacotes
 * Persistência desacoplada
+* Uso adequado de status HTTP
 
 ---
 
@@ -107,16 +153,35 @@ Este projeto faz parte da minha jornada de aprendizado para me tornar um **Desen
 ```text
 src
 └── main
-    └── java
-        └── estoque
-            ├── app
-            ├── model
-            ├── dao
-            ├── service
-            ├── database
-            ├── io
-            ├── exception
-            └── Main.java
+    ├── java
+    │   └── estoque
+    │       ├── controller
+    │       ├── model
+    │       ├── repository
+    │       ├── service
+    │       ├── io
+    │       └── StockflowApiApplication.java
+    │
+    └── resources
+        └── application.properties
+```
+
+A arquitetura atual segue o fluxo:
+
+```text
+Cliente HTTP
+     ↓
+Controller
+     ↓
+Service
+     ↓
+Repository
+     ↓
+Spring Data JPA
+     ↓
+Hibernate
+     ↓
+PostgreSQL
 ```
 
 ---
@@ -125,16 +190,129 @@ src
 
 O projeto utiliza **PostgreSQL** para persistência dos dados.
 
-Tabela principal:
+A versão atual utiliza **Spring Data JPA + Hibernate** para realizar o mapeamento entre objetos Java e tabelas do banco.
 
-| Campo      | Tipo          |
-| ---------- | ------------- |
-| id         | SERIAL        |
-| nome       | VARCHAR(100)  |
-| preco      | DECIMAL(10,2) |
-| quantidade | INTEGER       |
-| categoria  | VARCHAR(50)   |
-| tipo       | VARCHAR(20)   |
+### Entidade principal
+
+```java
+@Entity
+public class Produto
+```
+
+Campos principais:
+
+| Campo      | Tipo    |
+| ---------- | ------- |
+| id         | Long    |
+| nome       | String  |
+| preco      | Double  |
+| quantidade | Integer |
+| categoria  | String  |
+| tipo       | String  |
+
+O ID é gerado automaticamente pelo PostgreSQL.
+
+---
+
+# 📡 API REST
+
+## Listar produtos
+
+```http
+GET /produtos
+```
+
+Resposta:
+
+```http
+200 OK
+```
+
+---
+
+## Buscar produto por ID
+
+```http
+GET /produtos/{id}
+```
+
+Produto encontrado:
+
+```http
+200 OK
+```
+
+Produto inexistente:
+
+```http
+404 Not Found
+```
+
+---
+
+## Criar produto
+
+```http
+POST /produtos
+```
+
+Exemplo:
+
+```json
+{
+    "nome": "Mouse Gamer",
+    "preco": 120.00,
+    "quantidade": 15,
+    "categoria": "Periféricos",
+    "tipo": "fisico"
+}
+```
+
+Resposta:
+
+```http
+201 Created
+```
+
+---
+
+## Atualizar produto
+
+```http
+PUT /produtos/{id}
+```
+
+Resposta:
+
+```http
+200 OK
+```
+
+Caso o produto não exista:
+
+```http
+404 Not Found
+```
+
+---
+
+## Remover produto
+
+```http
+DELETE /produtos/{id}
+```
+
+Produto removido:
+
+```http
+204 No Content
+```
+
+Produto inexistente:
+
+```http
+404 Not Found
+```
 
 ---
 
@@ -156,39 +334,43 @@ cd StockFlow
 CREATE DATABASE stockflow;
 ```
 
-```sql
-CREATE TABLE produtos (
-    id SERIAL PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL,
-    preco DECIMAL(10,2) NOT NULL,
-    quantidade INT NOT NULL,
-    categoria VARCHAR(50),
-    tipo VARCHAR(20)
-);
-```
-
 ## Configure a conexão
 
-Edite a classe `ConnectionFactory.java` com:
+Edite:
 
-* URL
-* Usuário
-* Senha
+```text
+src/main/resources/application.properties
+```
+
+Exemplo:
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/stockflow
+spring.datasource.username=postgres
+spring.datasource.password=SUA_SENHA
+
+spring.jpa.hibernate.ddl-auto=update
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.format_sql=true
+```
+
+> Não coloque senhas reais no repositório GitHub.
 
 ## Execute
 
-Pela IDE:
-
-```
-Main.java
-```
-
-Ou utilizando Maven:
+Utilizando Maven:
 
 ```bash
-mvn compile
-mvn exec:java
+mvn spring-boot:run
 ```
+
+Ou:
+
+```bash
+mvn clean package
+```
+
+e depois execute o `.jar` gerado.
 
 ---
 
@@ -196,17 +378,15 @@ mvn exec:java
 
 ### Estrutura do projeto
 
-![Estrutura](codigos1.png)
+Adicione aqui uma captura de tela da estrutura do projeto no VS Code ou IntelliJ.
 
 ### Código
 
-![Código](codigos2.png)
-![Código](codigos3.png)
-![Código](codigos4.png)
+Adicione aqui uma captura de tela mostrando a implementação da API REST.
 
 ### Execução
 
-![Terminal](terminal1.png)
+Adicione aqui uma captura de tela do Postman, Insomnia ou terminal mostrando uma requisição à API.
 
 ---
 
@@ -223,29 +403,71 @@ mvn exec:java
 * ✔️ CRUD completo
 * ✔️ Exportação CSV
 * ✔️ Backup e restauração de dados
+* ✔️ Maven
+* ✔️ Spring Boot
+* ✔️ API REST
+* ✔️ Spring Data JPA
+* ✔️ Hibernate
+* ✔️ Integração Spring Boot + PostgreSQL
+* ✔️ `ResponseEntity`
+* ✔️ Status HTTP `200`, `201`, `204` e `404`
 
 ## 🚧 Próximas implementações
 
-* [ ] Spring Boot
-* [ ] API REST
-* [ ] Spring Data JPA
-* [ ] Hibernate
 * [ ] Bean Validation
+* [ ] Tratamento global de exceções
+* [ ] `@ControllerAdvice`
+* [ ] DTOs
+* [ ] MapStruct
 * [ ] JUnit
 * [ ] Mockito
-* [ ] JWT
-* [ ] Docker
+* [ ] Testes de integração
 * [ ] Swagger / OpenAPI
+* [ ] Spring Security
+* [ ] JWT
+* [ ] Flyway
+* [ ] Docker
+* [ ] Docker Compose
+* [ ] Paginação
+* [ ] Ordenação
 
 ---
 
 # 🎯 Objetivo
 
-O **StockFlow** é meu projeto principal de estudos em Java.
+O **StockFlow** é meu projeto principal de estudos em Java Back-End.
 
-A cada fase do roadmap, novas tecnologias e boas práticas são incorporadas ao sistema, transformando-o gradualmente em uma aplicação com arquitetura próxima à utilizada em projetos profissionais.
+A cada fase do roadmap, novas tecnologias e boas práticas são incorporadas ao sistema, transformando gradualmente a aplicação em um projeto com arquitetura próxima à utilizada em aplicações profissionais.
 
-O próximo passo será migrar a aplicação para **Spring Boot**, mantendo a evolução contínua do projeto.
+O projeto começou como uma aplicação Java utilizando JDBC e PostgreSQL:
+
+```text
+Java
+ ↓
+POO
+ ↓
+JDBC
+ ↓
+PostgreSQL
+```
+
+e atualmente evoluiu para:
+
+```text
+Spring Boot
+ ↓
+REST API
+ ↓
+Service
+ ↓
+Spring Data JPA
+ ↓
+Hibernate
+ ↓
+PostgreSQL
+```
+
+A evolução continuará com validação, tratamento de exceções, testes, segurança, documentação e containerização.
 
 ---
 
