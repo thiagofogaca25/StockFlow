@@ -38,7 +38,7 @@ public class ProdutoCsvImporter {
                     Produto produtoFisico = new ProdutoFisico(nome,preco,categoria,quantidade,tipo);
                     produto.add(produtoFisico);
                 }else{
-                    Produto produtoDigital = new ProdutoDigital(nome,preco,quantidade,categoria,tipo);
+                    Produto produtoDigital = new ProdutoDigital(nome,preco,categoria,quantidade,tipo);
                     produto.add(produtoDigital);
                 }
             }

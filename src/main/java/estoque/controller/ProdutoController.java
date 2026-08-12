@@ -1,11 +1,13 @@
 package estoque.controller;
 
+import estoque.dto.ProdutoResponseDTO;
 import org.springframework.web.bind.annotation.*;
 
 import org.springframework.http.ResponseEntity;
 
 import estoque.model.Produto;
 import estoque.service.EstoqueService;
+import estoque.dto.ProdutoRequestDTO;
 
 import java.net.URI;
 import java.util.List;
@@ -36,9 +38,9 @@ public class ProdutoController {
     }
 
     @PostMapping("/produtos")
-    public ResponseEntity<Produto> criar(@RequestBody Produto produto) {
+    public ResponseEntity<ProdutoResponseDTO> criar(@RequestBody ProdutoRequestDTO produto) {
 
-        Produto produtoCriado = service.salvar(produto);
+        ProdutoResponseDTO produtoCriado = service.salvar(produto);
 
         URI location = URI.create("/produtos/" + produtoCriado.getId());
 
